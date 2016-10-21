@@ -31,22 +31,16 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 
 public class Loader {
 
-	//private static final String IMAGES_DIR 	= "/resources/testImageFishEye2/";
-	private static final String IMAGES_DIR 			= "/resources/testImagesFishEye/";
-	private static final String IMG_FORMAT 			= ".png";
-	private static final String FILE_NAME_PREFIX 	= "image";
-	
-	//private static final String IMG_NAME = "/resources/arnold-frame.JPG";
-	
-	private int i;
-	private int i_max = 5;
+	private static final String IMAGES_DIR 	= "/resources/";
+	private static final String IMG_NAME 	= "NaturalTexture";
+	private static final String IMG_FORMAT 	= ".png";
+
 	
 	private String dirPath;
 	private IplImage img;
 
 	public Loader(){
 		this.dirPath =  Path.getAppPath()+ IMAGES_DIR;
-		this.i = 1;
 	}
 	
 	private void sleep(int milliseconds) {
@@ -60,10 +54,8 @@ public class Loader {
 	
 	public IplImage grab() {
 		//sleep(1000);
-		String path = dirPath + FILE_NAME_PREFIX + i + IMG_FORMAT;
-		//String path = dirPath + IMG_NAME;
+		String path = dirPath + IMG_NAME + IMG_FORMAT;
 		this.img	= cvLoadImage(path, 3);
-		this.i = i < i_max ? i + 1 :  1;
 		return img;
 	}
 
@@ -80,8 +72,7 @@ public class Loader {
 	}
 	
 	public CvSize getResolution() {
-		String path = dirPath + FILE_NAME_PREFIX + i + IMG_FORMAT;
-		//String path = dirPath + IMG_NAME;
+		String path = dirPath + IMG_NAME + IMG_FORMAT;
 		IplImage img = cvLoadImage(path, 3);
 		CvSize size =  new CvSize(img.width(), img.height());
 		cvRelease(img);
