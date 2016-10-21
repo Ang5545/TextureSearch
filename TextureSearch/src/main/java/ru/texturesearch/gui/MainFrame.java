@@ -29,6 +29,9 @@ public class MainFrame extends JFrame{
 		
 	}
 	
+	
+	
+	
 	public void showFrame() {
 		this.pack();
 		this.setVisible(true);
