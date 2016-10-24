@@ -30,7 +30,8 @@ public class SimpleHistogramDemo extends JFrame implements ActionListener {
         dataset.addBin(new SimpleHistogramBin(-0.5, 0.5, true, false));
         dataset.addBin(new SimpleHistogramBin(0.5, 1.5, true, false));
         dataset.addBin(new SimpleHistogramBin(1.5, 2.5, true, false));
-        dataset.addBin(new SimpleHistogramBin(2.5, 3.5, true, false));
+        //dataset.addBin(new SimpleHistogramBin(2.5, 3.5, true, false));
+        dataset.addBin(new SimpleHistogramBin(2.9, 3.1, true, false)) ;
         dataset.addObservations(new double[] {1.0, 2.0, 1.0, 1.0, 2.0, 3.0, 
             0.0, 0.0, 2.0, 2.0, 3.0, 0.0, 2.0, 2.0});
         

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -81,14 +82,23 @@ public class MainFrame extends JFrame{
 		}
 	}	
 	
+	private double[] getDoubleArrayFromList(List<Integer> list) {
+		double[] result = new double[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			result[i] = Double.valueOf(list.get(i));
+		}
+		return result;
+	}
 	
 	private class ProccessListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			imgHan.processImage(loader.getImg());
 			imgPan.setImage(imgHan.getResult());
 			
-			
-			
+			double[] vals = getDoubleArrayFromList(imgHan.getLBPlist());
+			    
+			HistogramFrame hist = new HistogramFrame("test", vals, WINDOW_WIDTH, WINDOW_HEIGHT);
+			hist.draw();
 		}
 	}
 	

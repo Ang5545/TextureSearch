@@ -107,6 +107,11 @@ public class ImageHandler {
 		return lbpList;
 	}
 	
+	
+	public List<Integer> getLBPlist() {
+		return lbpList;
+	}
+	
 	public BufferedImage getOrigin() {
 		return ImageHelper.getBufferedImage(origin);
 	}

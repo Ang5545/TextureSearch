@@ -32,8 +32,8 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 public class Loader {
 
 	private static final String IMAGES_DIR 	= "/images/";
-	private static final String IMG_FORMAT 	= ".png";
-	private static final String FILE_NAME 	= "NaturalTexture";
+	private static final String IMG_FORMAT 	= ".jpg";
+	private static final String FILE_NAME 	= "brick";
 	
 	
 	private String dirPath;
