@@ -2,8 +2,18 @@ package ru.texturesearch.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import org.bytedeco.javacpp.opencv_core.IplImage;
+
+import ru.texturesearch.image.ImageHandler;
+import ru.texturesearch.image.ImageHelper;
+import ru.texturesearch.image.Loader;
 
 public class MainFrame extends JFrame{
 
@@ -15,8 +25,24 @@ public class MainFrame extends JFrame{
 	
 	private static final String FRAME_NAME = "Texture Search";
 	
-	private static final int WINDOW_WIDTH = 1000;
-	private static final int WINDOW_HEIGHT = 400;
+	private static final int WINDOW_WIDTH = 300;
+	private static final int WINDOW_HEIGHT = 300;
+	
+	private JButton loadImgBtt;
+	private static final String LOAD_BTT_NAME = "Load image";
+	
+	private JButton processImgBtt;
+	private static final String PROCESS_BTT_NAME = "Process image";
+	
+	
+	private ImagePanel imgPan;
+	private static final String IMG_PAN_NAME = "Loaded image";
+	private static final int IMG_PAN_WIDTH = 200;
+	private static final int IMG_PAN_HEIGHT = 200;
+	
+	
+	private Loader loader;
+	private ImageHandler imgHan;
 	
 	public MainFrame() {
 		super(FRAME_NAME);
@@ -27,9 +53,44 @@ public class MainFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout());
 		
+		this.imgPan = new ImagePanel(IMG_PAN_WIDTH, IMG_PAN_HEIGHT, IMG_PAN_NAME);
+		this.add(imgPan);
+				
+		this.loadImgBtt = new JButton(LOAD_BTT_NAME);
+		this.loadImgBtt.addActionListener(new LoadListener());
+		
+		this.processImgBtt = new JButton(PROCESS_BTT_NAME);
+		this.processImgBtt.addActionListener(new ProccessListener());
+		
+		JPanel buttons = new JPanel();
+		buttons.add(loadImgBtt);
+		buttons.add(processImgBtt);
+
+		this.add(buttons, BorderLayout.PAGE_END);
+		
+		
+		
+		this.loader = new Loader();
+		this.imgHan = new ImageHandler(loader.getResolution());
 	}
 	
 	
+	private class LoadListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			imgPan.setImage(ImageHelper.getBufferedImage(loader.grab()));
+		}
+	}	
+	
+	
+	private class ProccessListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			imgHan.processImage(loader.getImg());
+			imgPan.setImage(imgHan.getResult());
+			
+			
+			
+		}
+	}
 	
 	
 	public void showFrame() {
