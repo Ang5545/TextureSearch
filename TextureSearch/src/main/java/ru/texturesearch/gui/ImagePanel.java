@@ -1,5 +1,6 @@
 package ru.texturesearch.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -12,7 +13,7 @@ import javax.swing.JPanel;
 
 import ru.texturesearch.image.ImageHelper;
 
-public class ImagePanel extends JPanel{
+public class ImagePanel extends JPanel {
 
 	private static final int X_OFFSET = 15;
 	private static final int Y_OFFSET = 40;

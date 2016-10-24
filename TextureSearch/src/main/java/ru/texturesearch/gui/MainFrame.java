@@ -4,14 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import org.bytedeco.javacpp.opencv_core.IplImage;
+
+import ru.texturesearch.image.ImageHandler;
 import ru.texturesearch.image.ImageHelper;
 import ru.texturesearch.image.Loader;
-import ru.texturesearch.utils.Path;
 
 public class MainFrame extends JFrame{
 
@@ -23,21 +25,24 @@ public class MainFrame extends JFrame{
 	
 	private static final String FRAME_NAME = "Texture Search";
 	
-	private static final int WINDOW_WIDTH = 250;
-	private static final int WINDOW_HEIGHT = 250;
+	private static final int WINDOW_WIDTH = 300;
+	private static final int WINDOW_HEIGHT = 300;
 	
-	private static final int IMG_PAN_WIDTH  = 200;
-	private static final int IMG_PAN_HEIGHT = 150;
+	private JButton loadImgBtt;
+	private static final String LOAD_BTT_NAME = "Load image";
 	
-	private static final String LOAD_IMG_BTT_NAME = "Load image";
-	private JButton loadImageBtt;
+	private JButton processImgBtt;
+	private static final String PROCESS_BTT_NAME = "Process image";
 	
-	// TODO -- Вынести в App ---
+	
+	private ImagePanel imgPan;
+	private static final String IMG_PAN_NAME = "Loaded image";
+	private static final int IMG_PAN_WIDTH = 200;
+	private static final int IMG_PAN_HEIGHT = 200;
+	
+	
 	private Loader loader;
-	private ImagePanel origImg;
-	
-	// --- *** ---
-	
+	private ImageHandler imgHan;
 	
 	public MainFrame() {
 		super(FRAME_NAME);
@@ -48,35 +53,48 @@ public class MainFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout());
 		
-		this.origImg = new ImagePanel(IMG_PAN_WIDTH, IMG_PAN_HEIGHT, "Original Image");
-		this.add(origImg, BorderLayout.PAGE_START);
+		this.imgPan = new ImagePanel(IMG_PAN_WIDTH, IMG_PAN_HEIGHT, IMG_PAN_NAME);
+		this.add(imgPan);
+				
+		this.loadImgBtt = new JButton(LOAD_BTT_NAME);
+		this.loadImgBtt.addActionListener(new LoadListener());
+		
+		this.processImgBtt = new JButton(PROCESS_BTT_NAME);
+		this.processImgBtt.addActionListener(new ProccessListener());
+		
+		JPanel buttons = new JPanel();
+		buttons.add(loadImgBtt);
+		buttons.add(processImgBtt);
+
+		this.add(buttons, BorderLayout.PAGE_END);
 		
 		
-		this.loadImageBtt = new JButton(LOAD_IMG_BTT_NAME);
-		this.loadImageBtt.addActionListener(new LoadImage());
-		this.add(loadImageBtt,	BorderLayout.SOUTH);
+		
+		this.loader = new Loader();
+		this.imgHan = new ImageHandler(loader.getResolution());
+	}
+	
+	
+	private class LoadListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			imgPan.setImage(ImageHelper.getBufferedImage(loader.grab()));
+		}
+	}	
+	
+	
+	private class ProccessListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			imgHan.processImage(loader.getImg());
+			imgPan.setImage(imgHan.getResult());
+			
+			
+			
+		}
 	}
 	
 	
 	public void showFrame() {
 		this.pack();
 		this.setVisible(true);
-	}
-	
-	
-	private class LoadImage implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-			try {
-				System.out.println("Load iamge from " + Path.getAppPath());
-				Loader loader = new Loader();
-				BufferedImage bimg = ImageHelper.getBufferedImage(loader.getImg());
-				
-				origImg.setImage(bimg);
-			} catch (Exception ee) {
-				ee.printStackTrace();
-			}
-			
-		}
 	}
 }

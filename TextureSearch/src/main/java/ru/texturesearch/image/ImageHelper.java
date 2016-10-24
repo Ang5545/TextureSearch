@@ -1,12 +1,17 @@
 package ru.texturesearch.image;
 
-import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
-import static org.bytedeco.javacpp.opencv_core.cvCreateImage;
-import static org.bytedeco.javacpp.opencv_core.cvRelease;
-import static org.bytedeco.javacpp.opencv_core.cvSet;
-import static org.bytedeco.javacpp.opencv_core.cvSize;
-import static org.bytedeco.javacpp.opencv_imgproc.CV_AA;
-import static org.bytedeco.javacpp.opencv_imgproc.cvLine;
+import java.awt.image.BufferedImage;
+
+import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameConverter;
+
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_imgcodecs.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.helper.opencv_core.CV_RGB;
+import static org.bytedeco.javacpp.opencv_core.*;
 
 import java.awt.image.BufferedImage;
 

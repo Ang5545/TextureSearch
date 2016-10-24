@@ -31,10 +31,10 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 
 public class Loader {
 
-	private static final String IMAGES_DIR 	= "/resources/";
-	private static final String IMG_NAME 	= "NaturalTexture";
+	private static final String IMAGES_DIR 	= "/images/";
 	private static final String IMG_FORMAT 	= ".png";
-
+	private static final String FILE_NAME 	= "NaturalTexture";
+	
 	
 	private String dirPath;
 	private IplImage img;
@@ -53,8 +53,8 @@ public class Loader {
 	
 	
 	public IplImage grab() {
-		//sleep(1000);
-		String path = dirPath + IMG_NAME + IMG_FORMAT;
+
+		String path = dirPath + FILE_NAME + IMG_FORMAT;
 		this.img	= cvLoadImage(path, 3);
 		return img;
 	}
@@ -72,7 +72,7 @@ public class Loader {
 	}
 	
 	public CvSize getResolution() {
-		String path = dirPath + IMG_NAME + IMG_FORMAT;
+		String path = dirPath + FILE_NAME + IMG_FORMAT;
 		IplImage img = cvLoadImage(path, 3);
 		CvSize size =  new CvSize(img.width(), img.height());
 		cvRelease(img);
