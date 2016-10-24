@@ -33,7 +33,7 @@ public class Loader {
 
 	private static final String IMAGES_DIR 	= "/images/";
 	private static final String IMG_FORMAT 	= ".jpg";
-	private static final String FILE_NAME 	= "brick";
+	private static final String FILE_NAME 	= "lbp";
 	
 	
 	private String dirPath;
