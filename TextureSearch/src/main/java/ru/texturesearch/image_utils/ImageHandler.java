@@ -39,6 +39,7 @@ public class ImageHandler {
 		lbpList = new ArrayList<Integer>();
 	}
 	
+	
 	public void processImage(IplImage img) {
 		this.origin	= cvCloneImage(img);
 		this.gray = ImageHelper.createImage(new CvSize(img.width(), img.height()), 1);
