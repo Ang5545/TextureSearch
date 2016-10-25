@@ -1,4 +1,4 @@
-package ru.texturesearch.image;
+package ru.texturesearch.image_utils;
 
 import static org.bytedeco.javacpp.helper.opencv_core.CV_RGB;
 import static org.bytedeco.javacpp.opencv_core.*;
@@ -53,7 +53,6 @@ public class Loader {
 	
 	
 	public IplImage grab() {
-
 		String path = dirPath + FILE_NAME + IMG_FORMAT;
 		this.img	= cvLoadImage(path, 3);
 		return img;
@@ -78,4 +77,12 @@ public class Loader {
 		cvRelease(img);
 		return size;
 	}
+	
+	
+	// !------
+	public IplImage loadImg(String path) {
+		this.img	= cvLoadImage(path, 3);
+		return img;
+	}
+	
 }

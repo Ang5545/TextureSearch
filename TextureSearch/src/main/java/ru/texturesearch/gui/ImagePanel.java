@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ru.texturesearch.image.ImageHelper;
+import ru.texturesearch.image_utils.ImageHelper;
 
 public class ImagePanel extends JPanel {
 

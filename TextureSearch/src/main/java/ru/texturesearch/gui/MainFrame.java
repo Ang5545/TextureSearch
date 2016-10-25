@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
-import ru.texturesearch.image.ImageHandler;
-import ru.texturesearch.image.ImageHelper;
-import ru.texturesearch.image.Loader;
+import ru.texturesearch.image_utils.ImageHandler;
+import ru.texturesearch.image_utils.ImageHelper;
+import ru.texturesearch.image_utils.Loader;
 
 public class MainFrame extends JFrame{
 
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame{
 		
 		
 		this.loader = new Loader();
-		this.imgHan = new ImageHandler(loader.getResolution());
+		this.imgHan = new ImageHandler();
 	}
 	
 	

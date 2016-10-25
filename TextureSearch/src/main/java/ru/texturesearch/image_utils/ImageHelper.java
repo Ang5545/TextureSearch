@@ -1,4 +1,4 @@
-package ru.texturesearch.image;
+package ru.texturesearch.image_utils;
 
 import java.awt.image.BufferedImage;
 

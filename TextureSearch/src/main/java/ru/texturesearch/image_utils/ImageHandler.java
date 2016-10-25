@@ -1,4 +1,4 @@
-package ru.texturesearch.image;
+package ru.texturesearch.image_utils;
 
 import static org.bytedeco.javacpp.opencv_core.cvCloneImage;
 import static org.bytedeco.javacpp.opencv_core.cvSet2D;
@@ -35,7 +35,7 @@ public class ImageHandler {
 	private IplImage result;
 	private List<Integer> lbpList;
 	
-	public ImageHandler(CvSize size) {
+	public ImageHandler() {
 		lbpList = new ArrayList<Integer>();
 	}
 	
@@ -45,7 +45,6 @@ public class ImageHandler {
 		this.result = ImageHelper.createImage(new CvSize(img.width(), img.height()), 1);
 		cvCvtColor(origin, gray, CV_BGR2GRAY);
 		lbpList = calculateLBP_1(gray, result);
-		
 	}
 	
 	
