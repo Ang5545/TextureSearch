@@ -39,11 +39,16 @@ public class Srm {
 	//String path = "/Users/fedormurashko/Pictures/Images/Mems/l_2e6ec111.jpg";
 	//String path = "/Users/fedormurashko/Pictures/Images/Mems/1372415283_zve37.jpg";
 	//String path = "/Users/fedormurashko/Desktop/IMG_1879.JPG";
-	String path = "/Users/fedormurashko/Desktop/maxresdefault 2.jpg";
+	//String path = "/Users/fedormurashko/Desktop/maxresdefault 2.jpg";
+	
+	String path= "/home/fedor-m/Рабочий стол/MzVtj35xHzk.jpg";
 	
 	
 	public Srm () {}
-		
+	
+	public void setPath(String path) {
+		this.path = path;
+	}
 	
 	public void run(float Q) {
 		
@@ -74,11 +79,28 @@ public class Srm {
 		
 		if (showAverages) {
 			for (int i = 0; i < average.length; i++) {
-				//average[i] = average[getRegionIndex(i)];
 				bb.put(i, (byte) getRegionIndex(i));
 			}
+		} else {
+			int regionCount = consolidateRegions();
+			if (regionCount > 1<<8) {
+				if (regionCount > 1<<16)
+					System.out.print("Found " + regionCount + " regions, which does not fit" + " in 16-bit.");
+				short[] pixel16 = new short[w * h];
+				
+				for (int i = 0; i < pixel16.length; i++) {
+					//pixel16[i] = (short) regionIndex[i];
+					bb.put(i, (byte) regionIndex[i]);
+				}
+			//	ip = new ShortProcessor(w, h, pixel16, null);
 			
-			//ip = new FloatProcessor(w, h, average, null);
+			} else {
+				System.out.println("else");
+//				pixel = new byte[w * h];
+//				for (int i = 0; i < pixel.length; i++)
+//					pixel[i] = (byte)regionIndex[i];
+//				ip = new ByteProcessor(w, h, pixel, null);
+			}
 		}
 		
 		//System.out.println("done");
@@ -191,6 +213,26 @@ public class Srm {
 	
 	public IplImage getResult() {
 		return gray;
+	}
+	
+	int consolidateRegions() {
+		/*
+		 * By construction, a negative regionIndex will always point
+		 * to a smaller regionIndex.
+		 *
+		 * So we can get away by iterating from small to large and
+		 * replacing the positive ones with running numbers, and the
+		 * negative ones by the ones they are pointing to (that are
+		 * now guaranteed to contain a non-negative index).
+		 */
+		int count = 0;
+		for (int i = 0; i < regionIndex.length; i++)
+			if (regionIndex[i] < 0)
+				regionIndex[i] =
+					regionIndex[-1 - regionIndex[i]];
+			else
+				regionIndex[i] = count++;
+		return count;
 	}
 	
 	public static void main(String[] args) {
